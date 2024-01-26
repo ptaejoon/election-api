@@ -1,2 +1,2 @@
 # election-api
-api server for election monitoring
+Api server for Korea's general election monitoring.
