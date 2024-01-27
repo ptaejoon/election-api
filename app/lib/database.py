@@ -4,6 +4,9 @@ from sqlalchemy.engine import Engine
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm.session import sessionmaker
 from app.lib.serializer import json_dumps
+# from app.models.candidates import CandidatesORM
+from functools import wraps
+from contextlib import contextmanager
 __all__ = [
 
 ]
@@ -37,6 +40,8 @@ def configure_sqlalchemy(
         ),
     )
 
+    # CandidatesORM.metadata.create_all(engine)
+
 
 def get_engine() -> Engine:
     """Return SQLAlchemy engine."""
@@ -52,3 +57,34 @@ def get_session_maker() -> scoped_session:
         raise Exception("SQLAlchemy session maker is not configured.")
     return SessionMaker
 
+
+@contextmanager
+def session_scope():
+    """
+    Provide a transactional scope around a series of operations.
+    with session_scope() as session:
+        session.query(...)
+    """
+    global SessionMaker
+    session = SessionMaker()
+    try:
+        yield session
+        session.commit()
+    except Exception as err:
+        session.rollback()
+        raise err
+    finally:
+        session.close()
+
+def with_session(func):
+    """
+    함수에 session 인자가 있으면 그대로 실행하고,
+    없으면 session_scope()로 session을 생성해서 실행한다.
+    """
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        if "session" in kwargs:
+            return func(*args, **kwargs)
+        with session_scope() as session:
+            return func(*args, session=session, **kwargs)
+    return wrapper

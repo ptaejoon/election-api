@@ -1,3 +1,4 @@
+
 from app.lib.serializer import json_dumps
 from app.lib.database import configure_sqlalchemy
 from fastapi import FastAPI
@@ -19,3 +20,4 @@ def set_sqlalchemy(app: FastAPI):
         "uri",
         engine_options=engine_option,
     )
+
