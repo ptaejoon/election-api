@@ -5,6 +5,7 @@ from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm.session import sessionmaker
 from app.lib.serializer import json_dumps
 # from app.models.candidates import CandidatesORM
+# [TODO] setting create_all without circular import
 from functools import wraps
 from contextlib import contextmanager
 __all__ = [

@@ -1,7 +1,7 @@
 """
 ORM for party table
 """
-
+from base import BaseORM
 
 class PartyORM(BaseORM):
     __tablename__ = "party"

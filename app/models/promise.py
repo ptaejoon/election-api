@@ -6,6 +6,7 @@ from sqlalchemy.sql.base import Column
 from sqlalchemy.sql.sqltypes import Boolean, DateTime, Integer, String
 from datetime import datetime
 
+
 class PromiseORM(BaseORM):
     __tablename__ = "promise"
     id = Column(Integer, primary_key=True)

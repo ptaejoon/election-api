@@ -29,6 +29,7 @@ class CandidatesPromiseRelationORM(BaseORM):
     def __hash__(self):
         return hash(self.candidate_id)
 
+
 class CandidatesORM(BaseORM):
     __tablename__ = "candidates"
     id = Column(Integer, primary_key=True, autoincrement=True)

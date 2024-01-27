@@ -61,3 +61,5 @@ class BaseORM:
         if (commit or flush) and refresh:
             session.refresh(self)
         return self
+
+    # [TODO] Delete, join, list

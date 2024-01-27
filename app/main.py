@@ -1,3 +1,7 @@
+"""
+Main.py works as a main function for the application
+Api app starts from here
+"""
 from typing import Union
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
@@ -13,7 +17,7 @@ async def lifespan(app: FastAPI):
     yield
     # When app teardown
 _db_uri = "mysql+pymysql://roly:rolypoly@localhost:3306/election"
-
+# connect db to real server / setting value through github secret (or another private way)
 configure_sqlalchemy(
     connection_uri=_db_uri,
     engine_options={
