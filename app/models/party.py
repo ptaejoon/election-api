@@ -1,17 +1,15 @@
 """
 ORM for party table
 """
-from base import BaseORM
+from .base import BaseORM
+from sqlalchemy import Column, Integer, String
+
 
 class PartyORM(BaseORM):
     __tablename__ = "party"
     id = Column(Integer, primary_key=True)
-    name = Column(String)
-    image = Column(String)
-    created_at = Column(DateTime, default=datetime.now())
-    updated_at = Column(DateTime, default=datetime.now(), onupdate=datetime.now())
-    deleted_at = Column(DateTime, nullable=True)
-    is_deleted = Column(Boolean, default=False)
+    name = Column(String(100))
+    image = Column(String(300))
 
     def __repr__(self):
         return f"<Party {self.name}>"

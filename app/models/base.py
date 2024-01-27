@@ -39,7 +39,7 @@ class BaseORM:
                **kwargs
                ) -> C:
         return cls(**kwargs).save(commit=commit, flush=flush, session=session)
-    # List, Create, Delete, Update 등의 기능을 추가할 수 있음
+
 
     @with_session
     def save(self,

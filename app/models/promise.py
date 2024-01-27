@@ -2,20 +2,15 @@
 ORM for Promise table
 """
 from app.models.base import BaseORM
-from sqlalchemy.sql.base import Column
-from sqlalchemy.sql.sqltypes import Boolean, DateTime, Integer, String
-from datetime import datetime
+from sqlalchemy import Column
+from sqlalchemy.sql.sqltypes import Integer, String
 
 
 class PromiseORM(BaseORM):
     __tablename__ = "promise"
     id = Column(Integer, primary_key=True)
-    title = Column(String)
-    content = Column(String)
-    created_at = Column(DateTime, default=datetime.now())
-    updated_at = Column(DateTime, default=datetime.now(), onupdate=datetime.now())
-    deleted_at = Column(DateTime, nullable=True)
-    is_deleted = Column(Boolean, default=False)
+    title = Column(String(100))
+    content = Column(String(500))
 
     def __repr__(self):
         return f"<Promise {self.title}>"
@@ -36,10 +31,6 @@ class PromiseFriendlinessORM(BaseORM):
     promise_id = Column(Integer)
     # 테이블 구성 고민 필요
     friendliness_id = Column(Integer)
-    created_at = Column(DateTime, default=datetime.now())
-    updated_at = Column(DateTime, default=datetime.now(), onupdate=datetime.now())
-    deleted_at = Column(DateTime, nullable=True)
-    is_deleted = Column(Boolean, default=False)
 
     def __repr__(self):
         return f"<PromiseFriendliness {self.promise_id}>"

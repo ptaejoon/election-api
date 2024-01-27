@@ -5,6 +5,8 @@ Api server code for Korea's general election monitoring.
 
 ```bash
 brew install mysql # (if you want to test with local mysql)
+mysql.server start # (if you want to test with local mysql)
+
 pip install -r requirements.txt
 ```
 

@@ -1,13 +1,12 @@
-from typing import Optional, Any
+from typing import Optional
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm.session import sessionmaker
 from app.lib.serializer import json_dumps
-# from app.models.candidates import CandidatesORM
-# [TODO] setting create_all without circular import
 from functools import wraps
 from contextlib import contextmanager
+
 __all__ = [
 
 ]
@@ -15,33 +14,30 @@ __all__ = [
 engine: Optional[Engine] = None
 SessionMaker: Optional[scoped_session] = None
 
+
 def configure_sqlalchemy(
-  connection_uri: str,
-  engine_options: Optional[dict] = None,   
+        connection_uri: str,
+        engine_options: Optional[dict] = None,
 ):
     """Configure SQLAlchemy engine and scoped session."""
     global engine, SessionMaker
 
     if engine:
         return
-    
-    
+
     options = {
-        "echo" : False,
-        "json_serializer" : lambda data: json_dumps(data, indent=None),
+        "echo": False,
+        "json_serializer": lambda data: json_dumps(data, indent=None),
     }
     if engine_options:
         options.update(engine_options)
-
     engine = create_engine(connection_uri, **engine_options or {})
     SessionMaker = scoped_session(sessionmaker(
-            bind=engine,
-            autocommit=False, 
-            autoflush=False, 
-        ),
+        bind=engine,
+        autocommit=False,
+        autoflush=False,
+    ),
     )
-
-    # CandidatesORM.metadata.create_all(engine)
 
 
 def get_engine() -> Engine:
@@ -50,6 +46,7 @@ def get_engine() -> Engine:
     if not engine:
         raise Exception("SQLAlchemy engine is not configured.")
     return engine
+
 
 def get_session_maker() -> scoped_session:
     """Return SQLAlchemy session maker."""
@@ -77,15 +74,18 @@ def session_scope():
     finally:
         session.close()
 
+
 def with_session(func):
     """
     함수에 session 인자가 있으면 그대로 실행하고,
     없으면 session_scope()로 session을 생성해서 실행한다.
     """
+
     @wraps(func)
     def wrapper(*args, **kwargs):
         if "session" in kwargs:
             return func(*args, **kwargs)
         with session_scope() as session:
             return func(*args, session=session, **kwargs)
+
     return wrapper
