@@ -26,6 +26,10 @@ class PromiseORM(BaseORM):
 
 
 class PromiseFriendlinessORM(BaseORM):
+    """
+    정책과 filter 별 친화도를 나타내는 테이블
+    ex. 정책1과 20대 서울사람 친화도
+    """
     __tablename__ = "promise_friendliness"
     id = Column(Integer, primary_key=True)
     promise_id = Column(Integer)

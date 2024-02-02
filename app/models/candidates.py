@@ -1,6 +1,8 @@
 """
 ORM for candidates table
 """
+from functools import cached_property
+
 from app.models.base import BaseORM
 from sqlalchemy import Column
 from sqlalchemy.sql.sqltypes import Integer, String
@@ -42,6 +44,10 @@ class CandidatesORM(BaseORM):
     image = Column(String(100), nullable=True)
     district = Column(String(100), nullable=True)
     candidate_number = Column(Integer, nullable=True)
+
+    @cached_property
+    def promise_relation(self):
+        return CandidatesPromiseRelationORM.list(candidate_id=self.id)
 
     def __repr__(self):
         return f"<Candidate {self.name}>"
