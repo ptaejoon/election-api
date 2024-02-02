@@ -29,9 +29,11 @@ class CandidatesORM(BaseORM):
     __tablename__ = "candidates"
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(100), nullable=True)
+    chinese_name = Column(String(100), nullable=True)
     party = Column(String(100), nullable=True)
     age = Column(Integer, nullable=True)
-    address = Column(String(100), nullable=True)
+    reelection = Column(Integer, nullable=True)
+    promise_completion_percentage = Column(Integer, nullable=True)
     criminal_record = Column(String(100), nullable=True)
     education = Column(String(100), nullable=True)
     property = Column(String(100), nullable=True)
@@ -39,6 +41,7 @@ class CandidatesORM(BaseORM):
     promise = Column(String(100), nullable=True) # todo relation 따로 엮기
     image = Column(String(100), nullable=True)
     district = Column(String(100), nullable=True)
+    candidate_number = Column(Integer, nullable=True)
 
     def __repr__(self):
         return f"<Candidate {self.name}>"
