@@ -8,7 +8,7 @@ from functools import wraps
 from contextlib import contextmanager
 
 __all__ = [
-
+    "with_session"
 ]
 
 engine: Optional[Engine] = None
