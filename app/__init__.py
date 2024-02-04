@@ -1,7 +1,7 @@
 from app.lib.database import configure_sqlalchemy
+from os import environ
+_db_uri = f"mysql+pymysql://{environ['DB_USER']}:{environ['DB_PWD']}@{environ['DB_HOST']}:3306/election"
 
-_db_uri = "mysql+pymysql://roly:rolypoly@localhost:3306/election"
-# connect db to real server / setting value through github secret (or another private way)
 configure_sqlalchemy(
     connection_uri=_db_uri,
     engine_options={

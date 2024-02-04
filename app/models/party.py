@@ -7,7 +7,7 @@ from sqlalchemy import Column, Integer, String
 
 class PartyORM(BaseORM):
     __tablename__ = "party"
-    name = Column(String(100), Primary_key=True)
+    name = Column(String(100), primary_key=True)
     image = Column(String(300))
 
     def __repr__(self):

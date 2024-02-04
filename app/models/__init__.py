@@ -5,6 +5,7 @@ from app.lib.database import engine
 from .candidates import *
 from .party import *
 from .promise import *
+from .proposal_records import *
 
 # [TODO] : setting ORM properly
 
@@ -13,3 +14,5 @@ CandidatesPromiseRelationORM.metadata.create_all(engine)
 PartyORM.metadata.create_all(engine)
 PromiseORM.metadata.create_all(engine)
 PromiseFriendlinessORM.metadata.create_all(engine)
+ProposalRecordsORM.metadata.create_all(engine)
+ProposalRecordsCandidateRelationORM.metadata.create_all(engine)

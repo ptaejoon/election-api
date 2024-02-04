@@ -33,7 +33,8 @@ class CandidatesORM(BaseORM):
     name = Column(String(100), nullable=True)
     chinese_name = Column(String(100), nullable=True)
     party = Column(String(100), nullable=True)
-    age = Column(Integer, nullable=True)
+    age = Column(String(10), nullable=True)
+    address = Column(String(100), nullable=True)
     reelection = Column(Integer, nullable=True)
     promise_completion_percentage = Column(Integer, nullable=True)
     criminal_record = Column(String(100), nullable=True)
@@ -44,6 +45,8 @@ class CandidatesORM(BaseORM):
     image = Column(String(100), nullable=True)
     district = Column(String(100), nullable=True)
     candidate_number = Column(Integer, nullable=True)
+    job = Column(String(100), nullable=True)
+    gender = Column(String(4), nullable=True)
 
     @cached_property
     def promise_relation(self):
