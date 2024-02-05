@@ -22,7 +22,7 @@ class BaseORM:
     def create_query(
             cls: Type[C],
             *filters,
-            order_by: Optional[Union[Column, List[Column, desc]]] = None,
+            order_by: Optional[Union[Column, List[Column], desc]] = None,
             limit: int = None,
             offset: int = None,
             session: Optional[Session] = None,
@@ -57,7 +57,7 @@ class BaseORM:
     @with_session
     def list(cls: Type[C],
              *filters,
-             order_by: Optional[Union[Column, List[Column, desc]]] = None,
+             order_by: Optional[Union[Column, List[Column], desc]] = None,
              limit: int = None,
              offset: int = None,
              session: Optional[Session] = None,
