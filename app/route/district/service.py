@@ -8,17 +8,17 @@ from sqlalchemy.orm import Session
 
 from app.lib.database import with_session
 from app.models.candidates import CandidatesORM
-from app.route.candidates.schema import CandidateRegistrationRequest
-
+from app.models.district import DistrictORM
+from app.route.district.schema import DistrictRegistrationRequest
 
 @with_session
-def create_candidate_record(
-                            body: CandidateRegistrationRequest,
+def create_district(
+                            body: DistrictRegistrationRequest,
                             session=None,
                             ):
     """Create candidate record."""
 
-    CandidatesORM.create(
+    DistrictORM.create(
         **body.__dict__,
         session=session
     )
@@ -26,7 +26,11 @@ def create_candidate_record(
 
 
 @with_session
-def get_candidate_record(candidate_id: int, session: Session = None):
+def get_district_record(district_id: int, session: Session = None):
     """Get candidate record."""
-    candidate = CandidatesORM.get(id=candidate_id, session=session)
-    return candidate
+
+
+@with_session
+def get_sub_district(parent_district: str, session: Session = None):
+    """Get sub district record."""
+    return DistrictORM.get(parent_district=parent_district, session=session)

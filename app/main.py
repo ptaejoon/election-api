@@ -8,6 +8,7 @@ from fastapi import FastAPI
 
 from app.lib.database import configure_sqlalchemy
 from app.route.candidates import candidates_router
+from app.route.district import district_router
 app = FastAPI()
 
 @asynccontextmanager
@@ -19,7 +20,7 @@ async def lifespan(app: FastAPI):
 
 
 app.include_router(candidates_router.router)
-
+app.include_router(district_router.router)
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
