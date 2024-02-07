@@ -6,7 +6,7 @@ Complicate or multiple ORM operations should be done here
 """
 from sqlalchemy.orm import Session
 
-from app.lib.database import with_session, return_response
+from app.lib.database import with_session, as_dict
 from app.models.candidates import CandidatesORM
 from app.route.candidates.schema import CandidateRegistrationRequest
 
@@ -26,7 +26,7 @@ def create_candidate_record(
 
 
 @with_session
-@return_response
+@as_dict
 def get_candidate_record(candidate_id: int, session: Session = None):
     """Get candidate record."""
     candidate = CandidatesORM.get(id=candidate_id, session=session)
@@ -34,7 +34,7 @@ def get_candidate_record(candidate_id: int, session: Session = None):
 
 
 @with_session
-@return_response
+@as_dict
 def list_candidate_records(session: Session = None):
     """List candidate records."""
     candidates = CandidatesORM.list(session=session)

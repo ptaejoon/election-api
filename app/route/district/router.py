@@ -8,14 +8,22 @@ router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
-@router.get("/{district_id}")
-async def get_district(district_id: int):
+@router.get("/")
+async def get_district():
     """
-    지역구 조회
+    대분류 지역구 조회
     """
-    res = service.get_district_record(district_id)
+    res = service.get_parent_districts()
     return res
 
+
+@router.post("/")
+def add_district(register_request: DistrictRegistrationRequest):
+    """
+    후보자 정보 추가
+    """
+    res = service.create_district(register_request)
+    return res
 
 @router.get("/{parent_district}")
 async def get_sub_districts(parent_district: str):
@@ -25,13 +33,7 @@ async def get_sub_districts(parent_district: str):
     res = service.get_sub_district(parent_district)
     return res
 
-@router.post("/")
-def add_district(register_request: DistrictRegistrationRequest):
-    """
-    후보자 정보 추가
-    """
-    res = service.create_district(register_request)
-    return res
+
 
 @router.delete("/{candidate_id}")
 async def delete_candidate(candidate_id: int):

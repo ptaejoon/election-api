@@ -61,6 +61,8 @@ class BaseORM:
              limit: int = None,
              offset: int = None,
              session: Optional[Session] = None,
+             columns: List[Column] = None,
+             distinct: List[Column] = None,
              **filter_by
              ) -> List[C]:
         query = cls.create_query(

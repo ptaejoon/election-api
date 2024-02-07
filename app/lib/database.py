@@ -11,7 +11,7 @@ from app.lib.serializer import json_dumps
 
 __all__ = [
     "with_session",
-    "return_response"
+    "as_dict"
 ]
 
 engine: Optional[Engine] = None
@@ -94,7 +94,7 @@ def with_session(func):
     return wrapper
 
 
-def return_response(func):
+def as_dict(func):
     """
     return type이 Union[ORM, List[ORM], None]인 경우에 사용.
     {"data": ...} 의 형태로 리턴한다.
