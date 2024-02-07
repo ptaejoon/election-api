@@ -1,14 +1,17 @@
+from contextlib import contextmanager
+from functools import wraps
 from typing import Optional
+
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm.session import sessionmaker
+
 from app.lib.serializer import json_dumps
-from functools import wraps
-from contextlib import contextmanager
 
 __all__ = [
-    "with_session"
+    "with_session",
+    "return_response"
 ]
 
 engine: Optional[Engine] = None
@@ -87,5 +90,24 @@ def with_session(func):
             return func(*args, **kwargs)
         with session_scope() as session:
             return func(*args, session=session, **kwargs)
+
+    return wrapper
+
+
+def return_response(func):
+    """
+    return type이 Union[ORM, List[ORM], None]인 경우에 사용.
+    {"data": ...} 의 형태로 리턴한다.
+    """
+
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        res = func(*args, **kwargs)
+        if res is None:
+            return {}
+        elif type(res) == list:
+            return {"data": [x.__dict__ for x in res]}
+        else:
+            return {"data": res.__dict__}
 
     return wrapper
