@@ -22,7 +22,18 @@ def create_candidate_record(
         **body.__dict__,
         session=session
     )
-    return {"SUCCESS"}
+    return {"flag": "SUCCESS"}
+
+
+@with_session
+def delete_candidate_record(
+        candidate_id: int,
+        session=None,
+):
+    """Delete candidate record."""
+    candidate = CandidatesORM.get(id=candidate_id, session=session)
+    candidate.delete(session=session)
+    return {"flag": "SUCCESS"}
 
 
 @with_session

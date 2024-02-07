@@ -42,7 +42,7 @@ async def delete_candidate(candidate_id: int):
     """
     후보자 정보 삭제
     """
-    return {"Hello": "World"}
+    return service.delete_candidate_record(candidate_id)
 
 
 @router.put("/")

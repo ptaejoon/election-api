@@ -11,7 +11,9 @@ from app.lib.serializer import json_dumps
 
 __all__ = [
     "with_session",
-    "as_dict"
+    "as_dict",
+    "engine",
+    "configure_sqlalchemy"
 ]
 
 engine: Optional[Engine] = None
