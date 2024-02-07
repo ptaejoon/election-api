@@ -8,7 +8,8 @@ from typing import List
 
 from sqlalchemy.orm import Session
 
-from app.lib.database import with_session, as_dict
+from app.lib.database import with_session
+from app.lib.response import as_dict
 from app.models.candidates import CandidatesORM
 from app.models.district import DistrictORM
 from app.route.district.schema import DistrictRegistrationRequest
